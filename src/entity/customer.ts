@@ -43,6 +43,3 @@ export default class Customer {
     this._address = address;
   }
 }
-
-const customer: Customer = new Customer("1", "Giovani");
-console.log(customer);
