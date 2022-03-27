@@ -11,7 +11,10 @@ describe("Customer unit tests", () => {
   });
 
   it("should change name", () => {
-    const customer = new Customer("123", "Giovani");
+    const name = "Giovani Franz";
+    const customer = new Customer("123", name);
+    expect(customer.name).toBe(name);
+    
     const newName = "Wesley Willians";
     customer.changeName(newName);
     expect(customer.name).toBe(newName);
