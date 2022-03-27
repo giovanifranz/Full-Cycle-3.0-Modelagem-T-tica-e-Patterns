@@ -114,10 +114,10 @@ export default {
   // restoreMocks: false,
 
   // The root directory that Jest should scan for tests and modules within
-  // rootDir: undefined,
+  rootDir: "src",
 
   // A list of paths to directories that Jest should use to search for files in
-  roots: ["<rootDir>/src"],
+  //roots: undefined,
 
   // Allows you to use a custom runner instead of Jest's default test runner
   // runner: "jest-runner",
@@ -155,7 +155,7 @@ export default {
   // ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
-  // testRegex: [],
+  testRegex: ".*\\..*spec\\.ts$",
 
   // This option allows the use of a custom results processor
   // testResultsProcessor: undefined,
@@ -170,7 +170,7 @@ export default {
   // timers: "real",
 
   // A map from regular expressions to paths to transformers
-  transform: {"^.+\.(t|j)sx?$": ["@swc/jest"]},
+  transform: { "^.+.(t|j)sx?$": ["@swc/jest"] },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
