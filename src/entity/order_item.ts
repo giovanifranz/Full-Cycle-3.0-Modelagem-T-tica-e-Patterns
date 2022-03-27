@@ -22,10 +22,10 @@ export class OrderItem {
   }
 
   validate(): boolean {
-    if (this._name.length === 0) {
+    if (!this._name.length) {
       throw new Error("Name is required");
     }
-    if (this._price === 0) {
+    if (!this._price) {
       throw new Error("Price is required");
     }
 
