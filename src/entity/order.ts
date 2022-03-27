@@ -24,6 +24,11 @@ export class Order {
     if (this._items.length === 0) {
       throw new Error("Item are required");
     }
+
+    if (this._items.some(({ quantity }) => quantity <= 0)) {
+      throw new Error("Quantity must be greater than 0");
+    }
+
     return true;
   }
 
