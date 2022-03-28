@@ -1,6 +1,6 @@
 import { describe, it, expect } from "@jest/globals";
 import { Customer, Order, OrderItem } from "../entity";
-import { OrderService } from "./";
+import { OrderService } from ".";
 
 describe("Order service unit tests", () => {
   it("should place an order", () => {

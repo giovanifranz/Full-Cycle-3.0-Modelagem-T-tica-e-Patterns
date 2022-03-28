@@ -1,5 +1,5 @@
 import { describe, it, expect } from "@jest/globals";
-import { Customer, Address } from "./";
+import { Customer, Address } from ".";
 
 describe("Customer unit tests", () => {
   it("should throw error when id is empty", () => {
