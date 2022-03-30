@@ -22,6 +22,10 @@ export class Customer {
     return this._name;
   }
 
+  get address(): Address {
+    return this._address;
+  }
+
   get rewardPoints(): number {
     return this._rewardPoints;
   }
@@ -43,6 +47,11 @@ export class Customer {
     this.validate();
   }
 
+  changeAddress(address: Address): void {
+    this._address = address;
+    this.validate();
+  }
+  
   activate(): void {
     if (this._address === undefined) {
       throw new Error("Address is mandatory to activate a customer");
