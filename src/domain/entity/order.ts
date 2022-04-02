@@ -45,6 +45,12 @@ export class Order {
   }
 
   total(): number {
-    return this._items.reduce((acc, item) => acc + item.price, 0);
+    return this._items.reduce((acc, item) => acc + item.total, 0)
+  }
+
+  changeItems(items: OrderItem[]) {
+    this._items = items;
+    this._total = this.total();
+    this.validate();
   }
 }

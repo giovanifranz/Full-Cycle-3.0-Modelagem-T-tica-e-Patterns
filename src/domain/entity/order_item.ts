@@ -41,7 +41,7 @@ export class OrderItem {
   }
 
   get price(): number {
-    return this._price * this._quantity;
+    return this._price;
   }
 
   get quantity(): number {
@@ -54,5 +54,9 @@ export class OrderItem {
 
   get id(): string {
     return this._id;
+  }
+
+  get total(): number {
+    return this._price * this._quantity;
   }
 }
