@@ -1,5 +1,5 @@
-import { Customer } from "../entity";
-import { RepositoryInterface } from "./repository-interface";
+import { Customer } from '../entity'
 
-export interface CustomerRepositoryInterface
-  extends RepositoryInterface<Customer> {}
+import { RepositoryInterface } from './repository-interface'
+
+export type CustomerRepositoryInterface = RepositoryInterface<Customer>

@@ -1,6 +1,6 @@
-import { Address, Customer } from "../../domain/entity";
-import { CustomerRepositoryInterface } from "../../domain/repository";
-import { CustomerModel } from "../db/sequelize/model";
+import { Address, Customer } from '../../domain/entity'
+import { CustomerRepositoryInterface } from '../../domain/repository'
+import { CustomerModel } from '../db/sequelize/model'
 
 export class CustomerRepository implements CustomerRepositoryInterface {
   async create(entity: Customer): Promise<void> {
@@ -13,7 +13,7 @@ export class CustomerRepository implements CustomerRepositoryInterface {
       city: entity.address.city,
       active: entity.isActive(),
       rewardPoints: entity.rewardPoints,
-    });
+    })
   }
 
   async update(entity: Customer): Promise<void> {
@@ -27,48 +27,48 @@ export class CustomerRepository implements CustomerRepositoryInterface {
         active: entity.isActive(),
         rewardPoints: entity.rewardPoints,
       },
-      { where: { id: entity.id } }
-    );
+      { where: { id: entity.id } },
+    )
   }
 
   async findById(id: string): Promise<Customer> {
-    let customerModel;
+    let customerModel
     try {
       customerModel = await CustomerModel.findOne({
         where: { id },
         rejectOnEmpty: true,
-      });
+      })
     } catch (error) {
-      throw new Error("Customer not found");
+      throw new Error('Customer not found')
     }
-    const customer = new Customer(id, customerModel.name);
+    const customer = new Customer(id, customerModel.name)
     const address = new Address(
       customerModel.street,
       customerModel.number,
       customerModel.zipcode,
-      customerModel.city
-    );
-    customer.changeAddress(address);
-    return customer;
+      customerModel.city,
+    )
+    customer.changeAddress(address)
+    return customer
   }
 
   async findAll(): Promise<Customer[]> {
-    const customerModels = await CustomerModel.findAll();
+    const customerModels = await CustomerModel.findAll()
     const customers = customerModels.map((customerModel) => {
-      const customer = new Customer(customerModel.id, customerModel.name);
-      customer.addRewardPoints(customerModel.rewardPoints);
+      const customer = new Customer(customerModel.id, customerModel.name)
+      customer.addRewardPoints(customerModel.rewardPoints)
       const address = new Address(
         customerModel.street,
         customerModel.number,
         customerModel.zipcode,
-        customerModel.city
-      );
-      customer.changeAddress(address);
+        customerModel.city,
+      )
+      customer.changeAddress(address)
       if (customerModel.active) {
-        customer.activate();
+        customer.activate()
       }
-      return customer;
-    });
-    return customers;
+      return customer
+    })
+    return customers
   }
 }

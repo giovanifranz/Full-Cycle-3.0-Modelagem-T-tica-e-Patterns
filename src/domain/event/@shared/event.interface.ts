@@ -1,4 +1,4 @@
 export interface EventInterface {
-  dateTimeOccurred: Date;
-  eventDate: any;
+  dateTimeOccurred: Date
+  eventDate: any
 }
