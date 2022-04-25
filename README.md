@@ -1,4 +1,4 @@
-# Curso DDD: Modelagem Tática e Patterns
+# Módulo DDD: Modelagem Tática e Patterns
 
 ## Requisites
 
