@@ -25,15 +25,15 @@ export class Order {
   }
 
   validate(): boolean {
-    if (this._id.length === 0) {
+    if (!this._id.length) {
       throw new Error('Id is required')
     }
 
-    if (this._customerId.length === 0) {
+    if (!this._customerId.length) {
       throw new Error('CustomerId is required')
     }
 
-    if (this._items.length === 0) {
+    if (!this._items.length) {
       throw new Error('Item qtd must be greater than 0')
     }
 

@@ -25,10 +25,10 @@ export class Product implements ProductInterface {
   }
 
   validate() {
-    if (this._id.length === 0) {
+    if (!this._id.length) {
       throw new Error('Id is required')
     }
-    if (this._name.length === 0) {
+    if (!this._name.length) {
       throw new Error('Name is required')
     }
     if (this._price < 0) {

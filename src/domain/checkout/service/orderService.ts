@@ -5,7 +5,7 @@ import { Order, OrderItem } from '../entity'
 
 export class OrderService {
   static placeOrder(customer: Customer, items: OrderItem[]): Order {
-    if (items.length === 0) {
+    if (!items.length) {
       throw new Error('Order must have at least one item')
     }
 
