@@ -1,8 +1,10 @@
-import { Address, Customer, Order, OrderItem } from './domain/entity'
+import { Order, OrderItem } from './domain/checkout/entity'
+import { Customer } from './domain/customer/entity'
+import { Address } from './domain/customer/value-object'
 
 const customer = new Customer('123', 'Giovani Franz')
-const addres = new Address('Rua dois', 123, '12345-678', 'São Paulo')
-customer.address = addres
+const address = new Address('Rua dois', 123, '12345-678', 'São Paulo')
+customer.changeAddress(address)
 customer.activate()
 console.log('customer', customer)
 
