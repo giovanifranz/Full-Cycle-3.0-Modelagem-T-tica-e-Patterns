@@ -15,9 +15,26 @@ export class EventDispatcher implements EventDispatcherInterface {
     this.eventHandlers[eventName].push(eventHandler)
   }
 
-  unregister(eventName: string, eventHandler: EventHandlerInterface): void {}
+  unregister(eventName: string, eventHandler: EventHandlerInterface): void {
+    if (this.eventHandlers[eventName]) {
+      const index = this.eventHandlers[eventName].indexOf(eventHandler)
+      if (index !== -1) {
+        this.eventHandlers[eventName].splice(index, 1)
+      }
+    }
+  }
 
-  unregisterAll(): void {}
+  unregisterAll(): void {
+    this.eventHandlers = {}
+  }
 
-  notify(event: EventInterface): void {}
+  notify(event: EventInterface): void {
+    const eventName = event.constructor.name
+
+    if (this.eventHandlers[eventName]) {
+      this.eventHandlers[eventName].forEach((eventHandler: EventHandlerInterface) => {
+        eventHandler.handle(event)
+      })
+    }
+  }
 }
