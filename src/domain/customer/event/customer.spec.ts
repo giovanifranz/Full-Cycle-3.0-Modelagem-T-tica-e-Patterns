@@ -1,3 +1,5 @@
+import { describe, expect, test } from '@jest/globals'
+
 import { Customer } from '../../customer/entity'
 
 import { CustomerChangedAddressEvent } from './customer-changed-address-event'

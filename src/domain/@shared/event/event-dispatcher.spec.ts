@@ -1,3 +1,5 @@
+import { describe, expect, it, jest } from '@jest/globals'
+
 import SendEmailWhenProductIsCreatedHandler from '../../product/event/handler/send-email-when-product-is-created-handler'
 import ProductCreatedEvent from '../../product/event/product-created-event'
 
@@ -12,7 +14,7 @@ describe('Domain events tests', () => {
 
     expect(eventDispatcher.getEventHandlers['ProductCreatedEvent']).toBeDefined()
     expect(eventDispatcher.getEventHandlers['ProductCreatedEvent'].length).toBe(1)
-    expect(eventDispatcher.getEventHandlers['ProductCreatedEvent'][0]).toMatchObject(eventHandler)
+    expect(eventDispatcher.getEventHandlers['ProductCreatedEvent'][0]).toBe(eventHandler)
   })
 
   it('should unregister an event handler', () => {
@@ -20,7 +22,7 @@ describe('Domain events tests', () => {
     const eventHandler = new SendEmailWhenProductIsCreatedHandler()
 
     eventDispatcher.register('ProductCreatedEvent', eventHandler)
-    expect(eventDispatcher.getEventHandlers['ProductCreatedEvent'][0]).toMatchObject(eventHandler)
+    expect(eventDispatcher.getEventHandlers['ProductCreatedEvent'][0]).toBe(eventHandler)
 
     eventDispatcher.unregister('ProductCreatedEvent', eventHandler)
     expect(eventDispatcher.getEventHandlers['ProductCreatedEvent']).toBeDefined()
@@ -32,7 +34,7 @@ describe('Domain events tests', () => {
     const eventHandler = new SendEmailWhenProductIsCreatedHandler()
 
     eventDispatcher.register('ProductCreatedEvent', eventHandler)
-    expect(eventDispatcher.getEventHandlers['ProductCreatedEvent'][0]).toMatchObject(eventHandler)
+    expect(eventDispatcher.getEventHandlers['ProductCreatedEvent'][0]).toBe(eventHandler)
 
     eventDispatcher.unregisterAll()
     expect(eventDispatcher.getEventHandlers['ProductCreatedEvent']).toBeUndefined()
@@ -44,7 +46,7 @@ describe('Domain events tests', () => {
     const spyEventHandler = jest.spyOn(eventHandler, 'handler')
 
     eventDispatcher.register('ProductCreatedEvent', eventHandler)
-    expect(eventDispatcher.getEventHandlers['ProductCreatedEvent'][0]).toMatchObject(eventHandler)
+    expect(eventDispatcher.getEventHandlers['ProductCreatedEvent'][0]).toBe(eventHandler)
 
     const productCreatedEvent = new ProductCreatedEvent({
       name: 'Product 1',

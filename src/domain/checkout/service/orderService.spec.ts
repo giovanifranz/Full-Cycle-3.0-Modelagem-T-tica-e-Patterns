@@ -1,3 +1,5 @@
+import { describe, expect, it } from '@jest/globals'
+
 import { Customer } from '../../customer/entity'
 import { Order, OrderItem } from '../entity'
 

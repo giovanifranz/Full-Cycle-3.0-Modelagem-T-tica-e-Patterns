@@ -1,3 +1,5 @@
+import { describe, expect, it } from '@jest/globals'
+
 import { Product } from '../entity/product'
 
 import { ProductService } from './productService'

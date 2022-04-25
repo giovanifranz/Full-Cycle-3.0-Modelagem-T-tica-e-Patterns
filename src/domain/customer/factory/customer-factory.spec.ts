@@ -1,3 +1,5 @@
+import { describe, expect, it } from '@jest/globals'
+
 import { Address } from '../value-object'
 
 import { CustomerFactory } from './customer-factory'

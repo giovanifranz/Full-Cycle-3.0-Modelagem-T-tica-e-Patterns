@@ -1,3 +1,5 @@
+import { describe, expect, it } from '@jest/globals'
+
 import { ProductFactory } from './product-factory'
 describe('Product factory unit test', () => {
   it('should create a product type a', () => {
