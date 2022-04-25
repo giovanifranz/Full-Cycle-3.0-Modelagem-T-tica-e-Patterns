@@ -2,7 +2,7 @@
 
 ## Requisites
 
-[NodeJS:17.9.0](https://nodejs.org/en/)
+[NodeJS:18.0.0](https://nodejs.org/en/)
 
 ## Unit Testing
 Para executar os testes unitários é necessário executar o comando:
