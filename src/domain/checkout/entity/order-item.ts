@@ -4,13 +4,21 @@ export class OrderItem {
   private _name: string
   private _price: number
   private _quantity: number
+  private _total: number
 
-  constructor(id: string, name: string, price: number, productId: string, quantity: number) {
+  constructor(
+    id: string,
+    name: string,
+    price: number,
+    productId: string,
+    quantity: number,
+  ) {
     this._id = id
     this._name = name
     this._price = price
     this._productId = productId
     this._quantity = quantity
+    this._total = this.total()
   }
 
   get id(): string {

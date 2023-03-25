@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { Sequelize } from 'sequelize-typescript'
 
-import { Product } from '../../../../domain/product/entity/product'
+import { Product } from '@/domain/product/entity/product'
 
 import { ProductModel, ProductRepository } from './'
 

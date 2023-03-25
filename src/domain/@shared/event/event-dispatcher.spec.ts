@@ -12,9 +12,11 @@ describe('Domain events tests', () => {
 
     eventDispatcher.register('ProductCreatedEvent', eventHandler)
 
-    expect(eventDispatcher.getEventHandlers['ProductCreatedEvent']).toBeDefined()
-    expect(eventDispatcher.getEventHandlers['ProductCreatedEvent'].length).toBe(1)
-    expect(eventDispatcher.getEventHandlers['ProductCreatedEvent'][0]).toBe(eventHandler)
+    expect(eventDispatcher.getEventHandlers.ProductCreatedEvent).toBeDefined()
+    expect(eventDispatcher.getEventHandlers.ProductCreatedEvent.length).toBe(1)
+    expect(eventDispatcher.getEventHandlers.ProductCreatedEvent[0]).toBe(
+      eventHandler,
+    )
   })
 
   it('should unregister an event handler', () => {
@@ -22,11 +24,13 @@ describe('Domain events tests', () => {
     const eventHandler = new SendEmailWhenProductIsCreatedHandler()
 
     eventDispatcher.register('ProductCreatedEvent', eventHandler)
-    expect(eventDispatcher.getEventHandlers['ProductCreatedEvent'][0]).toBe(eventHandler)
+    expect(eventDispatcher.getEventHandlers.ProductCreatedEvent[0]).toBe(
+      eventHandler,
+    )
 
     eventDispatcher.unregister('ProductCreatedEvent', eventHandler)
-    expect(eventDispatcher.getEventHandlers['ProductCreatedEvent']).toBeDefined()
-    expect(eventDispatcher.getEventHandlers['ProductCreatedEvent'].length).toBe(0)
+    expect(eventDispatcher.getEventHandlers.ProductCreatedEvent).toBeDefined()
+    expect(eventDispatcher.getEventHandlers.ProductCreatedEvent.length).toBe(0)
   })
 
   it('should unregister all event handlers', () => {
@@ -34,10 +38,12 @@ describe('Domain events tests', () => {
     const eventHandler = new SendEmailWhenProductIsCreatedHandler()
 
     eventDispatcher.register('ProductCreatedEvent', eventHandler)
-    expect(eventDispatcher.getEventHandlers['ProductCreatedEvent'][0]).toBe(eventHandler)
+    expect(eventDispatcher.getEventHandlers.ProductCreatedEvent[0]).toBe(
+      eventHandler,
+    )
 
     eventDispatcher.unregisterAll()
-    expect(eventDispatcher.getEventHandlers['ProductCreatedEvent']).toBeUndefined()
+    expect(eventDispatcher.getEventHandlers.ProductCreatedEvent).toBeUndefined()
   })
 
   it('should notify all event handlers', () => {
@@ -46,7 +52,9 @@ describe('Domain events tests', () => {
     const spyEventHandler = jest.spyOn(eventHandler, 'handler')
 
     eventDispatcher.register('ProductCreatedEvent', eventHandler)
-    expect(eventDispatcher.getEventHandlers['ProductCreatedEvent'][0]).toBe(eventHandler)
+    expect(eventDispatcher.getEventHandlers.ProductCreatedEvent[0]).toBe(
+      eventHandler,
+    )
 
     const productCreatedEvent = new ProductCreatedEvent({
       name: 'Product 1',

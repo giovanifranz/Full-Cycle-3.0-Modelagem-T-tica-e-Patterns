@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { Sequelize } from 'sequelize-typescript'
 
-import { Customer } from '../../../../domain/customer/entity'
-import { Address } from '../../../../domain/customer/value-object'
+import { Customer } from '@/domain/customer/entity'
+import { Address } from '@/domain/customer/value-object'
 
 import { CustomerModel, CustomerRepository } from './'
 

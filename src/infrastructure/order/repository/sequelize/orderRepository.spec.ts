@@ -1,12 +1,18 @@
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { Sequelize } from 'sequelize-typescript'
 
-import { Order, OrderItem } from '../../../../domain/checkout/entity'
-import { Customer } from '../../../../domain/customer/entity/customer'
-import { Address } from '../../../../domain/customer/value-object/address'
-import { Product } from '../../../../domain/product/entity/product'
-import { CustomerModel, CustomerRepository } from '../../../customer/repository/sequelize'
-import { ProductModel, ProductRepository } from '../../../product/repository/sequelize'
+import { Order, OrderItem } from '@/domain/checkout/entity'
+import { Customer } from '@/domain/customer/entity'
+import { Address } from '@/domain/customer/value-object/address'
+import { Product } from '@/domain/product/entity/product'
+import {
+  CustomerModel,
+  CustomerRepository,
+} from '@/infrastructure/customer/repository/sequelize'
+import {
+  ProductModel,
+  ProductRepository,
+} from '@/infrastructure/product/repository/sequelize'
 
 import { OrderItemModel, OrderModel, OrderRepository } from './'
 
@@ -21,7 +27,12 @@ describe('Order repository test', () => {
       sync: { force: true },
     })
 
-    sequelize.addModels([CustomerModel, OrderModel, OrderItemModel, ProductModel])
+    sequelize.addModels([
+      CustomerModel,
+      OrderModel,
+      OrderItemModel,
+      ProductModel,
+    ])
     await sequelize.sync()
   })
 
@@ -40,7 +51,13 @@ describe('Order repository test', () => {
     const product = new Product('123', 'Product 1', 10)
     await productRepository.create(product)
 
-    const orderItem = new OrderItem('1', product.name, product.price, product.id, 2)
+    const orderItem = new OrderItem(
+      '1',
+      product.name,
+      product.price,
+      product.id,
+      2,
+    )
     const order = new Order('123', '123', [orderItem])
 
     const orderRepository = new OrderRepository()
@@ -79,13 +96,25 @@ describe('Order repository test', () => {
     const product = new Product('123', 'Product 1', 10)
     await productRepository.create(product)
 
-    const orderItem = new OrderItem('1', product.name, product.price, product.id, 2)
+    const orderItem = new OrderItem(
+      '1',
+      product.name,
+      product.price,
+      product.id,
+      2,
+    )
     const order = new Order('123', '123', [orderItem])
 
     const orderRepository = new OrderRepository()
     await orderRepository.create(order)
 
-    const orderItem2 = new OrderItem('2', product.name, product.price, product.id, 2)
+    const orderItem2 = new OrderItem(
+      '2',
+      product.name,
+      product.price,
+      product.id,
+      2,
+    )
     order.items.push(orderItem2)
 
     await orderRepository.update(order)
@@ -121,7 +150,13 @@ describe('Order repository test', () => {
     const product = new Product('456', 'Product 1', 10)
     await productRepository.create(product)
 
-    const orderItem = new OrderItem('1', product.name, product.price, product.id, 2)
+    const orderItem = new OrderItem(
+      '1',
+      product.name,
+      product.price,
+      product.id,
+      2,
+    )
     const order = new Order('456', customer.id, [orderItem])
 
     const orderRepository = new OrderRepository()
@@ -143,10 +178,22 @@ describe('Order repository test', () => {
     const product = new Product('456', 'Product 1', 10)
     await productRepository.create(product)
 
-    const orderItem = new OrderItem('1', product.name, product.price, product.id, 2)
+    const orderItem = new OrderItem(
+      '1',
+      product.name,
+      product.price,
+      product.id,
+      2,
+    )
     const order1 = new Order('123', customer.id, [orderItem])
 
-    const orderItem2 = new OrderItem('2', product.name, product.price, product.id, 2)
+    const orderItem2 = new OrderItem(
+      '2',
+      product.name,
+      product.price,
+      product.id,
+      2,
+    )
     const order2 = new Order('456', customer.id, [orderItem2])
 
     const orderRepository = new OrderRepository()

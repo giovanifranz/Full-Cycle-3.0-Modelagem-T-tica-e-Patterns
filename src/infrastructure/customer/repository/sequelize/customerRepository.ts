@@ -1,6 +1,6 @@
-import { Customer } from '../../../../domain/customer/entity'
-import { CustomerRepositoryInterface } from '../../../../domain/customer/repository/customerRepositoryInterface'
-import { Address } from '../../../../domain/customer/value-object/address'
+import { Customer } from '@/domain/customer/entity'
+import { CustomerRepositoryInterface } from '@/domain/customer/repository/customerRepositoryInterface'
+import { Address } from '@/domain/customer/value-object/address'
 
 import { CustomerModel } from './customerModel'
 

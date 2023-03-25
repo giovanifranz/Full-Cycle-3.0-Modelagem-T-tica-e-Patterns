@@ -1,5 +1,5 @@
-import { Order, OrderItem } from '../../../../domain/checkout/entity'
-import { OrderRepositoryInterface } from '../../../../domain/checkout/repository/orderRepositoryInterface'
+import { Order, OrderItem } from '@/domain/checkout/entity'
+import { OrderRepositoryInterface } from '@/domain/checkout/repository/orderRepositoryInterface'
 
 import { OrderItemModel, OrderModel } from './'
 
@@ -65,7 +65,13 @@ export class OrderRepository implements OrderRepositoryInterface {
       orderModel.id,
       orderModel.customer_id,
       orderModel.items.map((item) => {
-        return new OrderItem(item.id, item.name, item.price, item.product_id, item.quantity)
+        return new OrderItem(
+          item.id,
+          item.name,
+          item.price,
+          item.product_id,
+          item.quantity,
+        )
       }),
     )
 
@@ -80,7 +86,13 @@ export class OrderRepository implements OrderRepositoryInterface {
           orderModel.id,
           orderModel.customer_id,
           orderModel.items.map((item) => {
-            return new OrderItem(item.id, item.name, item.price, item.product_id, item.quantity)
+            return new OrderItem(
+              item.id,
+              item.name,
+              item.price,
+              item.product_id,
+              item.quantity,
+            )
           }),
         ),
     )

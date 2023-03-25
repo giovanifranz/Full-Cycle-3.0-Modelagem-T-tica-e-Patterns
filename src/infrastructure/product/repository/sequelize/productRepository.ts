@@ -1,5 +1,5 @@
-import { Product } from '../../../../domain/product/entity'
-import { ProductRepositoryInterface } from '../../../../domain/product/repository/productRepositoryInterface'
+import { Product } from '@/domain/product/entity'
+import { ProductRepositoryInterface } from '@/domain/product/repository/productRepositoryInterface'
 
 import { ProductModel } from './productModel'
 
@@ -35,7 +35,8 @@ export class ProductRepository implements ProductRepositoryInterface {
   async findAll(): Promise<Product[]> {
     const productModels = await ProductModel.findAll()
     return productModels.map(
-      (productModel) => new Product(productModel.id, productModel.name, productModel.price),
+      (productModel) =>
+        new Product(productModel.id, productModel.name, productModel.price),
     )
   }
 }

@@ -1,6 +1,13 @@
-import { BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table } from 'sequelize-typescript'
+import {
+  BelongsTo,
+  Column,
+  ForeignKey,
+  Model,
+  PrimaryKey,
+  Table,
+} from 'sequelize-typescript'
 
-import { ProductModel } from '../../../product/repository/sequelize'
+import { ProductModel } from '@/infrastructure/product/repository/sequelize'
 
 import { OrderModel } from './orderModel'
 
