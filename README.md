@@ -1,8 +1,8 @@
-# Módulo DDD: Modelagem Tática e Patterns
+# Módulo Clean Architecture
 
 ## Requisitos
 
-[NodeJS:18.12.1](https://nodejs.org/en/)
+[NodeJS:v20.2.0](https://nodejs.org/en/)
 
 É recomendável utilizar o [NVM](https://github.com/nvm-sh/nvm)
 
@@ -10,7 +10,7 @@ Depois de instalado basta utilizar o seguintes comandos para instalar os pacotes
 
 ```bash
 
-# Instala o Node.JS na versão 18.12.1
+# Instala o Node.JS na versão v20.2.0
 $ nvm use
 $ nvm install
 
@@ -19,17 +19,19 @@ $ npm install
 ```
 
 ## Development
+
 Para rodar a aplicação:
 
 ```bash
-$ npm run dev
+npm run dev
 ```
 
-##  Testes
+## Testes
+
 Para executar os testes unitários é necessário executar o comando:
 
 ```bash
-$ npm run test
+npm run test
 ```
 
 ## Desenvolvedor

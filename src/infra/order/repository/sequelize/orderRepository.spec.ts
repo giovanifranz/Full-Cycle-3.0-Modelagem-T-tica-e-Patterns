@@ -8,11 +8,11 @@ import { Product } from '@/domain/product/entity/product'
 import {
   CustomerModel,
   CustomerRepository,
-} from '@/infrastructure/customer/repository/sequelize'
+} from '@/infra/customer/repository/sequelize'
 import {
   ProductModel,
   ProductRepository,
-} from '@/infrastructure/product/repository/sequelize'
+} from '@/infra/product/repository/sequelize'
 
 import { OrderItemModel, OrderModel, OrderRepository } from './'
 

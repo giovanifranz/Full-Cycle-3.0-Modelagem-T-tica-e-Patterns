@@ -8,7 +8,7 @@ import {
   Table,
 } from 'sequelize-typescript'
 
-import { CustomerModel } from '@/infrastructure/customer/repository/sequelize'
+import { CustomerModel } from '@/infra/customer/repository/sequelize'
 
 import { OrderItemModel } from './orderItemModel'
 

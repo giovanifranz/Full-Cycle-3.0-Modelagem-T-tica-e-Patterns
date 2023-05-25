@@ -7,7 +7,7 @@ import {
   Table,
 } from 'sequelize-typescript'
 
-import { ProductModel } from '@/infrastructure/product/repository/sequelize'
+import { ProductModel } from '@/infra/product/repository/sequelize'
 
 import { OrderModel } from './orderModel'
 
