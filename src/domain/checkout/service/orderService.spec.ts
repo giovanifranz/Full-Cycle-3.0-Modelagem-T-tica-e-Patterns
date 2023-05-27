@@ -26,4 +26,11 @@ describe('Order service unit tests', () => {
 
     expect(total).toBe(500)
   })
+
+  it('should throw an error if order is equal to or less than zero', () => {
+    const customer = new Customer('c1', 'Customer 1')
+    expect(() => OrderService.placeOrder(customer, [])).toThrowError(
+      'Order must have at least one item',
+    )
+  })
 })

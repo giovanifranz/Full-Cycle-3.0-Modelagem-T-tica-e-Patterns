@@ -167,6 +167,11 @@ describe('Order repository test', () => {
     expect(orderFound).toStrictEqual(order)
   })
 
+  it('it should return an error if it does not find an order', async () => {
+    const orderRepository = new OrderRepository()
+    await expect(orderRepository.find('1')).rejects.toThrow('Order not found')
+  })
+
   it('should find all orders', async () => {
     const customerRepository = new CustomerRepository()
     const customer = new Customer('456', 'Customer 1')
