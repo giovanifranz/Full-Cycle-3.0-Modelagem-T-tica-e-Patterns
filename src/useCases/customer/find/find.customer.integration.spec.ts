@@ -7,6 +7,10 @@ import {
 import { describe, beforeEach, afterEach, it, expect } from '@jest/globals'
 import { Sequelize } from 'sequelize-typescript'
 import { FindCustomerUseCase } from './find.customer.useCase'
+import {
+  InputFindCustomerDto,
+  OutputFindCustomerDTO,
+} from './find.customer.dto'
 
 describe('Integration test find customer use case', () => {
   let sequelize: Sequelize
@@ -37,11 +41,11 @@ describe('Integration test find customer use case', () => {
 
     await customerRepository.create(customer)
 
-    const input = {
+    const input: InputFindCustomerDto = {
       id: '123',
     }
 
-    const output = {
+    const output: OutputFindCustomerDTO = {
       id: '123',
       name: 'John',
       address: {
