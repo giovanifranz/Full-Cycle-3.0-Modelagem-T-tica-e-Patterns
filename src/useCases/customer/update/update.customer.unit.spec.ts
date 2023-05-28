@@ -5,10 +5,15 @@ import { InputUpdateCustomerDto } from './update.customer.dto'
 import { CustomerRepository } from '@/infra/customer/repository/sequelize'
 import { UpdateCustomerUseCase } from './update.customer.useCase'
 
-const customer = CustomerFactory.createWithAddress(
-  'John',
-  new Address('Street', 123, 'Zip', 'City'),
-)
+const customer = CustomerFactory.createWithAddress({
+  name: 'John',
+  address: new Address({
+    street: 'Street',
+    number: 1,
+    zip: 'Zip',
+    city: 'City',
+  }),
+})
 
 const input: InputUpdateCustomerDto = {
   id: customer.id,
@@ -31,7 +36,7 @@ const MockRepository = () => {
 }
 
 describe('Unit test update customer use case', () => {
-  it.only('should update customer', async () => {
+  it('should update customer', async () => {
     const customerRepository = MockRepository()
     const useCase = new UpdateCustomerUseCase(
       customerRepository as CustomerRepository,

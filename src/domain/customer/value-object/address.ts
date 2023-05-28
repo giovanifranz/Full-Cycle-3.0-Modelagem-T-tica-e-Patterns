@@ -1,10 +1,17 @@
+interface Props {
+  street: string
+  number: number
+  zip: string
+  city: string
+}
+
 export class Address {
   _street = ''
   _number = 0
   _zip = ''
   _city = ''
 
-  constructor(street: string, number: number, zip: string, city: string) {
+  constructor({ street, number, zip, city }: Props) {
     this._street = street
     this._number = number
     this._zip = zip

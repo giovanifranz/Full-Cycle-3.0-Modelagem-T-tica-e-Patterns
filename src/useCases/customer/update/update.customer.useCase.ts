@@ -18,14 +18,7 @@ export class UpdateCustomerUseCase {
     const customer = await this.customerRepository.find(input.id)
 
     customer.changeName(input.name)
-    customer.changeAddress(
-      new Address(
-        input.address.street,
-        input.address.number,
-        input.address.zip,
-        input.address.city,
-      ),
-    )
+    customer.changeAddress(new Address(input.address))
 
     await this.customerRepository.update(customer)
 

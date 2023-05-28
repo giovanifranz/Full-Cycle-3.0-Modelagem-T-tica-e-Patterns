@@ -28,7 +28,12 @@ describe('Customer repository test', () => {
   it('should create a customer', async () => {
     const customerRepository = new CustomerRepository()
     const customer = new Customer('123', 'Customer 1')
-    const address = new Address('Street 1', 1, 'Zipcode 1', 'City 1')
+    const address = new Address({
+      street: 'Street',
+      number: 1,
+      zip: 'Zip',
+      city: 'City',
+    })
     customer.changeAddress(address)
     await customerRepository.create(customer)
 
@@ -49,7 +54,12 @@ describe('Customer repository test', () => {
   it('should update a customer', async () => {
     const customerRepository = new CustomerRepository()
     const customer = new Customer('123', 'Customer 1')
-    const address = new Address('Street 1', 1, 'Zipcode 1', 'City 1')
+    const address = new Address({
+      street: 'Street',
+      number: 1,
+      zip: 'Zip',
+      city: 'City',
+    })
     customer.changeAddress(address)
     await customerRepository.create(customer)
 
@@ -72,7 +82,12 @@ describe('Customer repository test', () => {
   it('should find a customer', async () => {
     const customerRepository = new CustomerRepository()
     const customer = new Customer('123', 'Customer 1')
-    const address = new Address('Street 1', 1, 'Zipcode 1', 'City 1')
+    const address = new Address({
+      street: 'Street',
+      number: 1,
+      zip: 'Zip',
+      city: 'City',
+    })
     customer.changeAddress(address)
     await customerRepository.create(customer)
 
@@ -92,13 +107,23 @@ describe('Customer repository test', () => {
   it('should find all customers', async () => {
     const customerRepository = new CustomerRepository()
     const customer1 = new Customer('123', 'Customer 1')
-    const address1 = new Address('Street 1', 1, 'Zipcode 1', 'City 1')
+    const address1 = new Address({
+      street: 'Street 1',
+      number: 1,
+      zip: 'Zip 1',
+      city: 'City 1',
+    })
     customer1.changeAddress(address1)
     customer1.addRewardPoints(10)
     customer1.activate()
 
     const customer2 = new Customer('456', 'Customer 2')
-    const address2 = new Address('Street 2', 2, 'Zipcode 2', 'City 2')
+    const address2 = new Address({
+      street: 'Street 2',
+      number: 2,
+      zip: 'Zip 2',
+      city: 'City 2',
+    })
     customer2.changeAddress(address2)
     customer2.addRewardPoints(20)
 

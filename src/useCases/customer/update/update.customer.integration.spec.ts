@@ -5,14 +5,14 @@ import {
 } from '@/infra/customer/repository/sequelize'
 import { describe, beforeEach, afterEach, it, expect } from '@jest/globals'
 import { Sequelize } from 'sequelize-typescript'
-import { FindCustomerUseCase } from './find.customer.useCase'
+import { UpdateCustomerUseCase } from './update.customer.useCase'
 import {
-  InputFindCustomerDto,
-  OutputFindCustomerDTO,
-} from './find.customer.dto'
+  InputUpdateCustomerDto,
+  OutputUpdateCustomerDTO,
+} from './update.customer.dto'
 import { CustomerFactory } from '@/domain/customer/factory/customer-factory'
 
-describe('Integration test find customer use case', () => {
+describe('Integration test update customer use case', () => {
   let sequelize: Sequelize
 
   beforeEach(async () => {
@@ -33,34 +33,39 @@ describe('Integration test find customer use case', () => {
 
   it('should find customer by id', async () => {
     const customerRepository = new CustomerRepository()
-    const useCase = new FindCustomerUseCase(customerRepository)
-
-    const address = new Address({
-      street: 'Street',
-      number: 1,
-      zip: 'Zip',
-      city: 'City',
-    })
+    const useCase = new UpdateCustomerUseCase(customerRepository)
 
     const customer = CustomerFactory.createWithAddress({
       name: 'John',
-      address,
+      address: new Address({
+        street: 'Street',
+        number: 1,
+        zip: 'Zip',
+        city: 'City',
+      }),
     })
 
     await customerRepository.create(customer)
 
-    const input: InputFindCustomerDto = {
+    const input: InputUpdateCustomerDto = {
       id: customer.id,
+      name: 'John Updated',
+      address: {
+        street: 'Street Updated',
+        number: 123,
+        zip: 'Zip Updated',
+        city: 'City Updated',
+      },
     }
 
-    const output: OutputFindCustomerDTO = {
+    const output: OutputUpdateCustomerDTO = {
       id: customer.id,
-      name: 'John',
+      name: 'John Updated',
       address: {
-        street: 'Street',
-        number: 1,
-        city: 'City',
-        zip: 'Zip',
+        street: 'Street Updated',
+        number: 123,
+        zip: 'Zip Updated',
+        city: 'City Updated',
       },
     }
 

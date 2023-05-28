@@ -43,7 +43,12 @@ describe('Order repository test', () => {
   it('should create a new order', async () => {
     const customerRepository = new CustomerRepository()
     const customer = new Customer('123', 'Customer 1')
-    const address = new Address('Street 1', 1, 'Zipcode 1', 'City 1')
+    const address = new Address({
+      street: 'Street',
+      number: 1,
+      zip: 'Zip',
+      city: 'City',
+    })
     customer.changeAddress(address)
     await customerRepository.create(customer)
 
@@ -88,7 +93,12 @@ describe('Order repository test', () => {
   it('should update a product', async () => {
     const customerRepository = new CustomerRepository()
     const customer = new Customer('123', 'Customer 1')
-    const address = new Address('Street 1', 1, 'Zipcode 1', 'City 1')
+    const address = new Address({
+      street: 'Street',
+      number: 1,
+      zip: 'Zip',
+      city: 'City',
+    })
     customer.changeAddress(address)
     await customerRepository.create(customer)
 
@@ -142,7 +152,12 @@ describe('Order repository test', () => {
   it('should find a order', async () => {
     const customerRepository = new CustomerRepository()
     const customer = new Customer('456', 'Customer 1')
-    const address = new Address('Street 1', 1, 'Zipcode 1', 'City 1')
+    const address = new Address({
+      street: 'Street',
+      number: 1,
+      zip: 'Zip',
+      city: 'City',
+    })
     customer.changeAddress(address)
     await customerRepository.create(customer)
 
@@ -175,7 +190,12 @@ describe('Order repository test', () => {
   it('should find all orders', async () => {
     const customerRepository = new CustomerRepository()
     const customer = new Customer('456', 'Customer 1')
-    const address = new Address('Street 1', 1, 'Zipcode 1', 'City 1')
+    const address = new Address({
+      street: 'Street',
+      number: 1,
+      zip: 'Zip',
+      city: 'City',
+    })
     customer.changeAddress(address)
     await customerRepository.create(customer)
 

@@ -1,4 +1,3 @@
-import { Customer } from '@/domain/customer/entity'
 import { Address } from '@/domain/customer/value-object'
 import { CustomerRepository } from '@/infra/customer/repository/sequelize'
 import { describe, it, expect, jest } from '@jest/globals'
@@ -7,10 +6,19 @@ import {
   InputFindCustomerDto,
   OutputFindCustomerDTO,
 } from './find.customer.dto'
+import { CustomerFactory } from '@/domain/customer/factory/customer-factory'
 
-const customer = new Customer('123', 'John')
-const address = new Address('Street', 123, 'Zip', 'City')
-customer.changeAddress(address)
+const address = new Address({
+  street: 'Street',
+  number: 1,
+  zip: 'Zip',
+  city: 'City',
+})
+
+const customer = CustomerFactory.createWithAddress({
+  name: 'John',
+  address,
+})
 
 const MockRepository = () => {
   return {
@@ -31,15 +39,15 @@ describe('Unit test find customer use case', () => {
     await customerRepository.create(customer)
 
     const input: InputFindCustomerDto = {
-      id: '123',
+      id: customer.id,
     }
 
     const output: OutputFindCustomerDTO = {
-      id: '123',
+      id: customer.id,
       name: 'John',
       address: {
         street: 'Street',
-        number: 123,
+        number: 1,
         city: 'City',
         zip: 'Zip',
       },

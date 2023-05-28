@@ -3,7 +3,12 @@ import { Customer } from './domain/customer/entity'
 import { Address } from './domain/customer/value-object'
 
 const customer = new Customer('123', 'Giovani Franz')
-const address = new Address('Rua dois', 123, '12345-678', 'São Paulo')
+const address = new Address({
+  street: 'Rua dois',
+  number: 123,
+  zip: '12345-678',
+  city: 'São Paulo',
+})
 customer.changeAddress(address)
 customer.activate()
 console.log('customer', customer)

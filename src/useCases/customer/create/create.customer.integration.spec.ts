@@ -9,7 +9,7 @@ import { Sequelize } from 'sequelize-typescript'
 import { CreateCustomerUseCase } from './create.customer.useCase'
 import { InputCreateCustomerDto } from './create.customer.dto'
 
-describe('Integration test find customer use case', () => {
+describe('Integration test create customer use case', () => {
   let sequelize: Sequelize
 
   beforeEach(async () => {
@@ -33,7 +33,13 @@ describe('Integration test find customer use case', () => {
     const useCase = new CreateCustomerUseCase(customerRepository)
 
     const customer = new Customer('123', 'John')
-    const address = new Address('Street', 123, 'Zip', 'City')
+    const address = new Address({
+      street: 'Street',
+      number: 1,
+      zip: 'Zip',
+      city: 'City',
+    })
+
     customer.changeAddress(address)
 
     await customerRepository.create(customer)
