@@ -23,15 +23,15 @@ const input: InputUpdateCustomerDto = {
 
 const MockRepository = () => {
   return {
-    find: jest.fn(),
+    find: jest.fn().mockReturnValue(Promise.resolve(customer)),
     findAll: jest.fn(),
-    create: jest.fn().mockReturnValue(Promise.resolve(customer)),
+    create: jest.fn(),
     update: jest.fn(),
   }
 }
 
 describe('Unit test update customer use case', () => {
-  it('should update customer', async () => {
+  it.only('should update customer', async () => {
     const customerRepository = MockRepository()
     const useCase = new UpdateCustomerUseCase(
       customerRepository as CustomerRepository,
