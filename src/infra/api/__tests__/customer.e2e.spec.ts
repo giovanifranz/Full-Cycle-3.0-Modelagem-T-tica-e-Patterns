@@ -1,9 +1,21 @@
-import { describe, beforeEach, afterAll, it, expect } from '@jest/globals'
+import {
+  describe,
+  beforeAll,
+  beforeEach,
+  afterAll,
+  it,
+  expect,
+} from '@jest/globals'
 import request from 'supertest'
-import { app, sequelize } from '../express'
 import { InputCreateCustomerDto } from '@/useCases/customer/create/create.customer.dto'
+import { sequelize, app } from '../fastify'
+import { InputUpdateCustomerDto } from '@/useCases/customer/update/update.customer.dto'
 
 describe('E2E test for customer', () => {
+  beforeAll(async () => {
+    await app.ready()
+  })
+
   beforeEach(async () => {
     await sequelize.sync({ force: true })
   })
@@ -23,7 +35,7 @@ describe('E2E test for customer', () => {
       },
     }
 
-    const response = await request(app).post('/customer').send(input)
+    const response = await request(app.server).post('/customer').send(input)
 
     expect(response.status).toBe(201)
     expect(response.body.name).toBe(input.name)
@@ -36,7 +48,7 @@ describe('E2E test for customer', () => {
   it('should not create a customer with invalid input', async () => {
     const input = { name: 'John' }
 
-    const response = await request(app).post('/customer').send(input)
+    const response = await request(app.server).post('/customer').send(input)
 
     expect(response.status).toBe(500)
   })
@@ -61,13 +73,13 @@ describe('E2E test for customer', () => {
         city: 'City 2',
       },
     }
-    const response1 = await request(app).post('/customer').send(input1)
+    const response1 = await request(app.server).post('/customer').send(input1)
     expect(response1.status).toBe(201)
 
-    const response2 = await request(app).post('/customer').send(input2)
+    const response2 = await request(app.server).post('/customer').send(input2)
     expect(response2.status).toBe(201)
 
-    const listResponse = await request(app).get('/customer').send()
+    const listResponse = await request(app.server).get('/customer').send()
     expect(listResponse.status).toBe(200)
     expect(listResponse.body.customers.length).toBe(2)
 
@@ -84,5 +96,68 @@ describe('E2E test for customer', () => {
     expect(customer2.address.city).toBe(input2.address.city)
     expect(customer2.address.zip).toBe(input2.address.zip)
     expect(customer2.address.number).toBe(input2.address.number)
+  })
+
+  it('should find a customer', async () => {
+    const input: InputCreateCustomerDto = {
+      name: 'John',
+      address: {
+        street: 'Street',
+        number: 123,
+        zip: 'Zip',
+        city: 'City',
+      },
+    }
+
+    const response = await request(app.server).post('/customer').send(input)
+    expect(response.status).toBe(201)
+
+    const findResponse = await request(app.server)
+      .get(`/customer/${response.body.id}`)
+      .send()
+
+    expect(findResponse.status).toBe(200)
+    expect(findResponse.body.name).toBe(input.name)
+    expect(findResponse.body.address.street).toBe(input.address.street)
+    expect(findResponse.body.address.number).toBe(input.address.number)
+    expect(findResponse.body.address.zip).toBe(input.address.zip)
+    expect(findResponse.body.address.city).toBe(input.address.city)
+  })
+
+  it('should update a customer', async () => {
+    const input: InputCreateCustomerDto = {
+      name: 'John',
+      address: {
+        street: 'Street',
+        number: 123,
+        zip: 'Zip',
+        city: 'City',
+      },
+    }
+
+    const response = await request(app.server).post('/customer').send(input)
+    expect(response.status).toBe(201)
+
+    const update: InputUpdateCustomerDto = {
+      id: response.body.id,
+      name: 'John 2',
+      address: {
+        street: 'Street 2',
+        number: 321,
+        zip: 'Zip 2',
+        city: 'City 2',
+      },
+    }
+
+    const updatedResponse = await request(app.server)
+      .put(`/customer`)
+      .send(update)
+
+    expect(updatedResponse.status).toBe(200)
+    expect(updatedResponse.body.name).toBe(update.name)
+    expect(updatedResponse.body.address.street).toBe(update.address.street)
+    expect(updatedResponse.body.address.number).toBe(update.address.number)
+    expect(updatedResponse.body.address.zip).toBe(update.address.zip)
+    expect(updatedResponse.body.address.city).toBe(update.address.city)
   })
 })

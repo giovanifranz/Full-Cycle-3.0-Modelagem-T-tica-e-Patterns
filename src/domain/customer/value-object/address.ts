@@ -11,7 +11,7 @@ export class Address {
   _zip = ''
   _city = ''
 
-  constructor({ street, number, zip, city }: Props) {
+  constructor({ street, number, zip, city }: Partial<Props>) {
     this._street = street
     this._number = number
     this._zip = zip

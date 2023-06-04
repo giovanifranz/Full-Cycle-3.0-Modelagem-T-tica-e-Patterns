@@ -1,40 +1,91 @@
-import { CustomerRepository } from '@/infra/customer/repository/sequelize'
+import { CustomerRepositoryInterface } from '@/domain/customer/repository/customerRepositoryInterface'
+import {
+  createCustomerSchema,
+  findCustomerSchema,
+  updateCustomerSchema,
+} from '@/infra/customer/customer.schema'
 import { InputCreateCustomerDto } from '@/useCases/customer/create/create.customer.dto'
 import { CreateCustomerUseCase } from '@/useCases/customer/create/create.customer.useCase'
+import { InputFindCustomerDto } from '@/useCases/customer/find/find.customer.dto'
+import { FindCustomerUseCase } from '@/useCases/customer/find/find.customer.useCase'
 import { ListCustomerUseCase } from '@/useCases/customer/list/list.customer.useCase'
-import { Router, Request, Response } from 'express'
+import { InputUpdateCustomerDto } from '@/useCases/customer/update/update.customer.dto'
+import { UpdateCustomerUseCase } from '@/useCases/customer/update/update.customer.useCase'
+import { FastifyInstance } from 'fastify'
 
-export const customerRoute = Router()
-const repository = new CustomerRepository()
+export async function customerRoutes(
+  app: FastifyInstance,
+  repository: CustomerRepositoryInterface,
+) {
+  app.post('/', async (request, reply) => {
+    const useCase = new CreateCustomerUseCase(repository)
 
-customerRoute.post('/', async (req: Request, res: Response) => {
-  const useCase = new CreateCustomerUseCase(repository)
+    try {
+      const input = createCustomerSchema.parse(request.body)
+      const customerDto: InputCreateCustomerDto = {
+        name: input.name,
+        address: {
+          street: input.address.street,
+          number: input.address.number,
+          zip: input.address.zip,
+          city: input.address.city,
+        },
+      }
 
-  try {
-    const customerDto: InputCreateCustomerDto = {
-      name: req.body.name,
-      address: {
-        street: req.body.address.street,
-        number: req.body.address.number,
-        zip: req.body.address.zip,
-        city: req.body.address.city,
-      },
+      const output = await useCase.execute(customerDto)
+      reply.status(201).send(output)
+    } catch (err) {
+      reply.status(500).send(err)
     }
+  })
 
-    const output = await useCase.execute(customerDto)
-    res.status(201).send(output)
-  } catch (err) {
-    res.status(500).send(err)
-  }
-})
+  app.get('/', async (_, reply) => {
+    const useCase = new ListCustomerUseCase(repository)
 
-customerRoute.get('/', async (_: Request, res: Response) => {
-  const useCase = new ListCustomerUseCase(repository)
+    try {
+      const output = await useCase.execute({})
+      reply.status(200).send(output)
+    } catch (err) {
+      reply.status(500).send(err)
+    }
+  })
 
-  try {
-    const output = await useCase.execute({})
-    res.status(200).send(output)
-  } catch (err) {
-    res.status(500).send(err)
-  }
-})
+  app.get('/:id', async (request, reply) => {
+    const useCase = new FindCustomerUseCase(repository)
+
+    try {
+      const input = findCustomerSchema.parse(request.params)
+      const customerDto: InputFindCustomerDto = {
+        id: input.id,
+      }
+
+      const output = await useCase.execute(customerDto)
+      reply.status(200).send(output)
+    } catch (err) {
+      reply.status(404).send(err)
+    }
+  })
+
+  app.put('/', async (request, reply) => {
+    const useCase = new UpdateCustomerUseCase(repository)
+
+    try {
+      const input = updateCustomerSchema.parse(request.body)
+      const customerDto: InputUpdateCustomerDto = {
+        id: input.id,
+        name: input.name,
+        address: {
+          street: input.address.street,
+          number: input.address.number,
+          zip: input.address.zip,
+          city: input.address.city,
+        },
+      }
+
+      const output = await useCase.execute(customerDto)
+      reply.status(200).send(output)
+    } catch (err) {
+      reply.status(404).send(err)
+    }
+  })
+}
