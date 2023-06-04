@@ -1,6 +1,7 @@
 import {
   BelongsTo,
   Column,
+  DataType,
   ForeignKey,
   HasMany,
   Model,
@@ -18,11 +19,11 @@ import { OrderItemModel } from './orderItemModel'
 })
 export class OrderModel extends Model {
   @PrimaryKey
-  @Column
+  @Column(DataType.STRING)
   declare id: string
 
   @ForeignKey(() => CustomerModel)
-  @Column({ allowNull: false })
+  @Column(DataType.STRING)
   declare customer_id: string
 
   @BelongsTo(() => CustomerModel)
@@ -31,6 +32,6 @@ export class OrderModel extends Model {
   @HasMany(() => OrderItemModel)
   declare items: OrderItemModel[]
 
-  @Column({ allowNull: false })
+  @Column(DataType.NUMBER)
   declare total: number
 }

@@ -1,4 +1,10 @@
-import { Column, Model, PrimaryKey, Table } from 'sequelize-typescript'
+import {
+  Column,
+  DataType,
+  Model,
+  PrimaryKey,
+  Table,
+} from 'sequelize-typescript'
 
 @Table({
   tableName: 'products',
@@ -6,12 +12,12 @@ import { Column, Model, PrimaryKey, Table } from 'sequelize-typescript'
 })
 export class ProductModel extends Model {
   @PrimaryKey
-  @Column
+  @Column(DataType.STRING)
   declare id: string
 
-  @Column({ allowNull: false })
+  @Column(DataType.STRING)
   declare name: string
 
-  @Column({ allowNull: false })
+  @Column(DataType.NUMBER)
   declare price: number
 }

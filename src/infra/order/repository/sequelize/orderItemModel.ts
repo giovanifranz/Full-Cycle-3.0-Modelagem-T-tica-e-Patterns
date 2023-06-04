@@ -1,6 +1,7 @@
 import {
   BelongsTo,
   Column,
+  DataType,
   ForeignKey,
   Model,
   PrimaryKey,
@@ -17,29 +18,29 @@ import { OrderModel } from './orderModel'
 })
 export class OrderItemModel extends Model {
   @PrimaryKey
-  @Column
+  @Column(DataType.STRING)
   declare id: string
 
   @ForeignKey(() => ProductModel)
-  @Column({ allowNull: false })
+  @Column(DataType.STRING)
   declare product_id: string
 
   @BelongsTo(() => ProductModel)
   declare product: ProductModel
 
   @ForeignKey(() => OrderModel)
-  @Column({ allowNull: false })
+  @Column(DataType.STRING)
   declare order_id: string
 
   @BelongsTo(() => OrderModel)
   declare order: OrderModel
 
-  @Column({ allowNull: false })
+  @Column(DataType.NUMBER)
   declare quantity: number
 
-  @Column({ allowNull: false })
+  @Column(DataType.STRING)
   declare name: string
 
-  @Column({ allowNull: false })
+  @Column(DataType.NUMBER)
   declare price: number
 }
