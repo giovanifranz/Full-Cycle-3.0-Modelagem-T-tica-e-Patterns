@@ -124,6 +124,14 @@ describe('E2E test for customer', () => {
     expect(findResponse.body.address.city).toBe(input.address.city)
   })
 
+  it('should not find a customer with invalid input', async () => {
+    const response = await request(app.server)
+      .get(`/customer/invalid-uuid`)
+      .send()
+
+    expect(response.status).toBe(404)
+  })
+
   it('should update a customer', async () => {
     const input: InputCreateCustomerDto = {
       name: 'John',

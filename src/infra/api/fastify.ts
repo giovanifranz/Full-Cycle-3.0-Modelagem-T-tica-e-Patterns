@@ -5,6 +5,11 @@ import {
   CustomerRepository,
 } from '@/infra/customer/repository/sequelize'
 import { customerRoutes } from './routes/customer.route'
+import {
+  ProductModel,
+  ProductRepository,
+} from '../product/repository/sequelize'
+import { productRoutes } from './routes/product.route'
 
 export const app: FastifyInstance = fastify()
 
@@ -16,6 +21,9 @@ export const app: FastifyInstance = fastify()
 app.register((instance) => customerRoutes(instance, new CustomerRepository()), {
   prefix: 'customer',
 })
+app.register((instance) => productRoutes(instance, new ProductRepository()), {
+  prefix: 'product',
+})
 
 export let sequelize: Sequelize
 ;(async () => {
@@ -25,6 +33,7 @@ export let sequelize: Sequelize
     logging: false,
   })
 
-  sequelize.addModels([CustomerModel])
+  sequelize.addModels([CustomerModel, ProductModel])
+  console.log(ProductModel)
   await sequelize.sync()
 })()
