@@ -12,7 +12,7 @@ import {
 import { CustomerFactory } from '@/domain/customer/factory/customer-factory'
 import { ListCustomerUseCase } from './list.customer.useCase'
 
-describe('Integration test find customer use case', () => {
+describe('Integration test list customer use case', () => {
   let sequelize: Sequelize
 
   beforeEach(async () => {
@@ -31,7 +31,7 @@ describe('Integration test find customer use case', () => {
     await sequelize.close()
   })
 
-  it('should find customer by id', async () => {
+  it('should list customers', async () => {
     const customerRepository = new CustomerRepository()
     const useCase = new ListCustomerUseCase(customerRepository)
 
