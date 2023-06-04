@@ -1,4 +1,4 @@
 import { RepositoryInterface } from '@/domain/@shared/repository'
-import { Product } from '../entity/product'
+import { ProductInterface } from '../entity'
 
-export type ProductRepositoryInterface = RepositoryInterface<Product>
+export type ProductRepositoryInterface = RepositoryInterface<ProductInterface>

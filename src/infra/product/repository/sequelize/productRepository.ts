@@ -1,10 +1,10 @@
-import { Product } from '@/domain/product/entity'
+import { Product, ProductInterface } from '@/domain/product/entity'
 import { ProductRepositoryInterface } from '@/domain/product/repository/productRepositoryInterface'
 
 import { ProductModel } from './productModel'
 
 export class ProductRepository implements ProductRepositoryInterface {
-  async create(entity: Product): Promise<void> {
+  async create(entity: ProductInterface): Promise<void> {
     await ProductModel.create({
       id: entity.id,
       name: entity.name,
