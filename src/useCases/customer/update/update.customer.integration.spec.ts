@@ -31,7 +31,7 @@ describe('Integration test update customer use case', () => {
     await sequelize.close()
   })
 
-  it('should find customer by id', async () => {
+  it('should update product', async () => {
     const customerRepository = new CustomerRepository()
     const useCase = new UpdateCustomerUseCase(customerRepository)
 
