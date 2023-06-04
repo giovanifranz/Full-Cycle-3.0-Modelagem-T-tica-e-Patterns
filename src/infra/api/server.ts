@@ -1,8 +1,7 @@
 import { app } from './fastify'
-import { config } from 'dotenv'
-config()
+import { env } from './env'
 
-const PORT: number = Number(process.env.PORT) || 3000
+const { PORT } = env
 
 app.listen({ port: PORT }, () => {
   console.log(`Server is listening on port ${PORT}`)
