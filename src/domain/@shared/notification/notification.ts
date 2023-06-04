@@ -1,30 +1,38 @@
-export type NotificationError = {
+export type NotificationErrorProps = {
   message: string
   context: string
 }
 
 export class Notification {
-  private errors: NotificationError[] = []
+  private _errors: NotificationErrorProps[] = []
 
-  addError(error: NotificationError) {
-    this.errors.push(error)
+  addError(error: NotificationErrorProps) {
+    this._errors.push(error)
   }
 
   messages(context?: string) {
-    if (!context) {
-      return this.concatMessages(this.errors)
+    function concatMessages(errors: NotificationErrorProps[]) {
+      return errors
+        .map((error) => `${error.context}: ${error.message}`)
+        .join(', ')
     }
 
-    const filterByContext = this.errors.filter(
+    if (!context) {
+      return concatMessages(this._errors)
+    }
+
+    const filterByContext = this._errors.filter(
       (error) => error.context === context,
     )
 
-    return this.concatMessages(filterByContext)
+    return concatMessages(filterByContext)
   }
 
-  private concatMessages(errors: NotificationError[]) {
-    return errors
-      .map((error) => `${error.context}: ${error.message}`)
-      .join(', ')
+  hasErrors(): boolean {
+    return this._errors.length > 0
+  }
+
+  getErrors(): NotificationErrorProps[] {
+    return this._errors
   }
 }

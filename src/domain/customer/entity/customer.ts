@@ -1,24 +1,25 @@
+import { Entity } from '@/domain/@shared/entity/entity.abstract'
 import { Address } from '../value-object'
+import { NotificationError } from '@/domain/@shared/notification/notification.error'
 
-export class Customer {
-  private _id: string
+export class Customer extends Entity {
   private _name = ''
   private _address!: Address
   private _active = false
   private _rewardPoints = 0
 
   constructor(id: string, name: string) {
-    this._id = id
+    super(id)
     this._name = name
     this.validate()
+
+    if (this._notification.hasErrors()) {
+      throw new NotificationError(this._notification.getErrors())
+    }
   }
 
   get rewardPoints(): number {
     return this._rewardPoints
-  }
-
-  get id(): string {
-    return this._id
   }
 
   get name(): string {
@@ -31,11 +32,17 @@ export class Customer {
 
   validate() {
     if (!this._id.length) {
-      throw new Error('Id is required')
+      this._notification.addError({
+        context: 'customer',
+        message: 'Id is required',
+      })
     }
 
     if (!this._name.length) {
-      throw new Error('Name is required')
+      this._notification.addError({
+        context: 'customer',
+        message: 'Name is required',
+      })
     }
   }
 
