@@ -21,7 +21,7 @@ export class CustomerModel extends Model {
   @Column(DataType.STRING)
   declare street: string
 
-  @Column(DataType.STRING)
+  @Column(DataType.NUMBER)
   declare number: number
 
   @Column(DataType.STRING)
