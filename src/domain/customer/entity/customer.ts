@@ -13,7 +13,7 @@ export class Customer {
     this.validate()
   }
 
-  public get rewardPoints(): number {
+  get rewardPoints(): number {
     return this._rewardPoints
   }
 
