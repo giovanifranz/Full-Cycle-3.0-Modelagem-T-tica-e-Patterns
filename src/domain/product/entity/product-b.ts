@@ -1,19 +1,20 @@
+import { Entity } from '@/domain/@shared/entity/entity.abstract'
 import { ProductInterface } from './product-interface'
+import { NotificationError } from '@/domain/@shared/notification/notification.error'
 
-export class ProductB implements ProductInterface {
-  private _id: string
+export class ProductB extends Entity implements ProductInterface {
   private _name: string
   private _price: number
 
   constructor(id: string, name: string, price: number) {
-    this._id = id
+    super(id)
     this._name = name
     this._price = price
     this.validate()
-  }
 
-  get id(): string {
-    return this._id
+    if (this._notification.hasErrors()) {
+      throw new NotificationError(this._notification.getErrors())
+    }
   }
 
   get name(): string {
@@ -26,13 +27,22 @@ export class ProductB implements ProductInterface {
 
   validate() {
     if (!this._id.length) {
-      throw new Error('Id is required')
+      this._notification.addError({
+        context: 'product B',
+        message: 'Id is required',
+      })
     }
     if (!this._name.length) {
-      throw new Error('Name is required')
+      this._notification.addError({
+        context: 'product B',
+        message: 'Name is required',
+      })
     }
     if (this._price < 0) {
-      throw new Error('Price must be greater than zero')
+      this._notification.addError({
+        context: 'product B',
+        message: 'Price must be greater than zero',
+      })
     }
     return true
   }
