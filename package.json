@@ -1,11 +1,14 @@
 {
-  "name": "full-cycle-3.0-modelagem-tatica-e-patterns",
+  "name": "full-cycle-3.0-clean-architecture",
   "version": "1.0.0",
-  "description": "Curso DDD: Modelagem Tática e Patterns",
+  "description": "Full Cycle 3.0: Módulo Clean Architecture",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "tsup src",
     "start": "npm run build && node dist/main.js",
-    "dev": "tsx ./src/main.ts",
+    "dev": "tsx src/infra/api/server.ts",
     "test": "npm run tsc -- --noEmit && jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -14,17 +17,28 @@
     "lint": "eslint \"src/**/*.ts\" --fix",
     "prepare": "husky install"
   },
+  "dependencies": {
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^6.31.1",
+    "sequelize-typescript": "^2.1.5",
+    "sqlite3": "^5.1.6"
+  },
   "devDependencies": {
     "@rocketseat/eslint-config": "^1.2.0",
     "@swc/cli": "^0.1.62",
     "@swc/core": "^1.3.60",
     "@swc/jest": "^0.2.26",
+    "@types/express": "^4.17.17",
     "@types/jest": "^29.5.1",
     "@types/node": "^20.2.5",
+    "@types/supertest": "^2.0.12",
     "eslint": "^8.41.0",
     "husky": "^8.0.3",
     "jest": "^29.5.0",
     "prettier": "^2.8.8",
+    "supertest": "^6.3.3",
     "ts-jest": "^29.1.0",
     "tsup": "^6.7.0",
     "tsx": "^3.12.7",
@@ -38,21 +52,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/giovanifranz/Full-Cycle-3.0-DDD-Modelagem-e-Patterns.git"
+    "url": "git+https://github.com/giovanifranz/fc-3.0-clean-architecture.git"
   },
   "author": "Giovani Franz",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/giovanifranz/Full-Cycle-3.0-DDD-Modelagem-e-Patterns/issues"
+    "url": "https://github.com/giovanifranz/fc-3.0-clean-architecture/issues"
   },
-  "homepage": "https://github.com/giovanifranz/Full-Cycle-3.0-DDD-Modelagem-e-Patterns#readme",
-  "engines": {
-    "node": ">=20"
-  },
-  "dependencies": {
-    "reflect-metadata": "^0.1.13",
-    "sequelize": "^6.31.1",
-    "sequelize-typescript": "^2.1.5",
-    "sqlite3": "^5.1.6"
-  }
+  "homepage": "https://github.com/giovanifranz/fc-3.0-clean-architecture#readme"
 }
