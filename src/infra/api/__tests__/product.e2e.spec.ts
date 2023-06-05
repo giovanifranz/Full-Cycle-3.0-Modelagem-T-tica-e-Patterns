@@ -128,4 +128,16 @@ describe('E2E test for product', () => {
     expect(updatedResponse.body.name).toBe(update.name)
     expect(updatedResponse.body.price).toBe(update.price)
   })
+
+  it('should not update a product with invalid input', async () => {
+    const update: InputUpdateProductDto = {
+      id: 'invalid-id',
+      name: 'Product 2',
+      price: 400,
+    }
+
+    const response = await request(app.server).put(`/product`).send(update)
+
+    expect(response.status).toBe(404)
+  })
 })

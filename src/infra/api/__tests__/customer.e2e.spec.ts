@@ -168,4 +168,21 @@ describe('E2E test for customer', () => {
     expect(updatedResponse.body.address.zip).toBe(update.address.zip)
     expect(updatedResponse.body.address.city).toBe(update.address.city)
   })
+
+  it('should not update a customer with invalid input', async () => {
+    const update: InputUpdateCustomerDto = {
+      id: 'invalid-id',
+      name: 'John',
+      address: {
+        street: 'Street',
+        number: 321,
+        zip: 'Zip',
+        city: 'City',
+      },
+    }
+
+    const response = await request(app.server).put(`/customer`).send(update)
+
+    expect(response.status).toBe(404)
+  })
 })
