@@ -34,6 +34,5 @@ export let sequelize: Sequelize
   })
 
   sequelize.addModels([CustomerModel, ProductModel])
-  console.log(ProductModel)
   await sequelize.sync()
 })()

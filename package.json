@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "tsup src",
-    "start": "npm run build && node dist/main.js",
+    "start": "npm run build && node dist/infra/api/server.js",
     "dev": "tsx src/infra/api/server.ts",
     "test": "npm run tsc -- --noEmit && jest",
     "test:watch": "jest --watch",
