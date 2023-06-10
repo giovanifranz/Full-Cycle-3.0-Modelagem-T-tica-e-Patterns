@@ -12,6 +12,7 @@ import { ListCustomerUseCase } from '@/useCases/customer/list/list.customer.useC
 import { InputUpdateCustomerDto } from '@/useCases/customer/update/update.customer.dto'
 import { UpdateCustomerUseCase } from '@/useCases/customer/update/update.customer.useCase'
 import { FastifyInstance } from 'fastify'
+import { CustomerPresenter } from '../presenters/customer.presenter'
 
 export async function customerRoutes(
   app: FastifyInstance,
@@ -39,12 +40,24 @@ export async function customerRoutes(
     }
   })
 
-  app.get('/', async (_, reply) => {
+  app.get('/', async (request, reply) => {
     const useCase = new ListCustomerUseCase(repository)
+    const acceptHeader = request.headers.accept
 
     try {
       const output = await useCase.execute({})
-      reply.status(200).send(output)
+
+      if (acceptHeader && acceptHeader.includes('application/xml')) {
+        return reply
+          .header('Content-Type', 'application/xml')
+          .status(200)
+          .send(CustomerPresenter.toXML(output))
+      }
+
+      return reply
+        .header('Content-Type', 'application/json')
+        .status(200)
+        .send(output)
     } catch (err) {
       reply.status(500).send(err)
     }

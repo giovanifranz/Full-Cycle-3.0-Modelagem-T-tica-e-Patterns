@@ -53,7 +53,7 @@ describe('E2E test for customer', () => {
     expect(response.status).toBe(500)
   })
 
-  it('should list all customer', async () => {
+  it('should list all customer json', async () => {
     const input1: InputCreateCustomerDto = {
       name: 'John',
       address: {
@@ -79,7 +79,10 @@ describe('E2E test for customer', () => {
     const response2 = await request(app.server).post('/customer').send(input2)
     expect(response2.status).toBe(201)
 
-    const listResponse = await request(app.server).get('/customer').send()
+    const listResponse = await request(app.server)
+      .get('/customer')
+      .set('Accept', 'application/json')
+      .send()
     expect(listResponse.status).toBe(200)
     expect(listResponse.body.customers.length).toBe(2)
 
@@ -96,6 +99,72 @@ describe('E2E test for customer', () => {
     expect(customer2.address.city).toBe(input2.address.city)
     expect(customer2.address.zip).toBe(input2.address.zip)
     expect(customer2.address.number).toBe(input2.address.number)
+  })
+
+  it('should list all customer xml', async () => {
+    const input1: InputCreateCustomerDto = {
+      name: 'John',
+      address: {
+        street: 'Street',
+        number: 123,
+        zip: 'Zip',
+        city: 'City',
+      },
+    }
+
+    const input2: InputCreateCustomerDto = {
+      name: 'James',
+      address: {
+        street: 'Street 2',
+        number: 321,
+        zip: 'Zip 2',
+        city: 'City 2',
+      },
+    }
+    const response1 = await request(app.server).post('/customer').send(input1)
+    expect(response1.status).toBe(201)
+
+    const response2 = await request(app.server).post('/customer').send(input2)
+    expect(response2.status).toBe(201)
+
+    const listResponseXML = await request(app.server)
+      .get('/customer')
+      .set('Accept', 'application/xml')
+      .send()
+    expect(listResponseXML.status).toBe(200)
+    expect(listResponseXML.text).toContain(
+      `<?xml version="1.0" encoding="UTF-8"?>`,
+    )
+    expect(listResponseXML.text).toContain(`<customers>`)
+    expect(listResponseXML.text).toContain(`<customer>`)
+    expect(listResponseXML.text).toContain(`<name>${input1.name}</name>`)
+    expect(listResponseXML.text).toContain(`<address>`)
+    expect(listResponseXML.text).toContain(
+      `<street>${input1.address.street}</street>`,
+    )
+    expect(listResponseXML.text).toContain(
+      `<city>${input1.address.city}</city>`,
+    )
+    expect(listResponseXML.text).toContain(
+      `<number>${input1.address.number}</number>`,
+    )
+    expect(listResponseXML.text).toContain(`<zip>${input1.address.zip}</zip>`)
+    expect(listResponseXML.text).toContain(`</address>`)
+    expect(listResponseXML.text).toContain(`</customer>`)
+    expect(listResponseXML.text).toContain(`<name>James</name>`)
+    expect(listResponseXML.text).toContain(`<address>`)
+    expect(listResponseXML.text).toContain(
+      `<street>${input2.address.street}</street>`,
+    )
+    expect(listResponseXML.text).toContain(
+      `<city>${input2.address.city}</city>`,
+    )
+    expect(listResponseXML.text).toContain(
+      `<number>${input2.address.number}</number>`,
+    )
+    expect(listResponseXML.text).toContain(`<zip>${input2.address.zip}</zip>`)
+    expect(listResponseXML.text).toContain(`</address>`)
+    expect(listResponseXML.text).toContain(`</customers>`)
   })
 
   it('should find a customer', async () => {
